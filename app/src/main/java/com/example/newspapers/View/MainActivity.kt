@@ -21,16 +21,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    var newsViewModel: NewsViewModel?=null
+    var newsViewModel: NewsViewModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         newsViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
         newsViewModel!!.getData()
         newsViewModel!!.listNews.observe(this, Observer {
-            if(it==null || it.size<=0){
+            if (it == null || it.size <= 0) {
                 main_pbLoad.visibility = View.VISIBLE
-            }else{
+            } else {
                 main_pbLoad.visibility = View.GONE
             }
         })
@@ -56,13 +56,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUp() {
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL, false)
+        val layoutManager: RecyclerView.LayoutManager =
+            LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL, false)
         var adapter = newsViewModel!!.listNews.value?.let { ArticleRecyclerViewAdapter(it) }
         adapter?.setCallBackItem {
             val urlNews = newsViewModel!!.listNews.value?.get(it)?.url
-//            Toast.makeText(baseContext,"$it - $urlNews", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this,WebActivity::class.java)
-            intent.putExtra("url",urlNews)
+            val intent = Intent(this, WebActivity::class.java)
+            intent.putExtra("url", urlNews)
             startActivity(intent)
         }
         main_rvNews.layoutManager = layoutManager

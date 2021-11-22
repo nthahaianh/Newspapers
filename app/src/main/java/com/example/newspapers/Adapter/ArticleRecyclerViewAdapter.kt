@@ -14,11 +14,11 @@ import java.util.*
 
 class ArticleRecyclerViewAdapter(var listNews: MutableList<Article>) :
     RecyclerView.Adapter<ArticleRecyclerViewAdapter.ViewHolder>() {
-
     lateinit var itemClick: (position: Int) -> Unit
     fun setCallBackItem(click: (position: Int) -> Unit) {
         itemClick = click
     }
+
     lateinit var view: View
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
@@ -60,10 +60,10 @@ class ArticleRecyclerViewAdapter(var listNews: MutableList<Article>) :
         }
     }
 
-    fun changeTimeFormat(stringInput:String):String{
+    fun changeTimeFormat(stringInput: String): String {
         var formatAPI = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
         var date = formatAPI.parse(stringInput)
-        var dateFormat = SimpleDateFormat("E MMM dd  HH:mm",Locale("en"))
+        var dateFormat = SimpleDateFormat("E MMM dd  HH:mm", Locale("en"))
         return dateFormat.format(date)
     }
 }

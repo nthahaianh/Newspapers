@@ -14,45 +14,57 @@ import retrofit2.Response
 class NewsRepository {
 
     var iNewsRetrofit: INewsRetrofit = NewsRetrofit.getRetrofit().create(INewsRetrofit::class.java)
-    fun getEverything(q:String,sortBy:String,resultLiveData: MutableLiveData<MutableList<Article>>){
-        iNewsRetrofit.getEveryThing(q,sortBy,API_KEY).enqueue(object:Callback<ResultNews>{
+    fun getEverything(
+        q: String,
+        sortBy: String,
+        resultLiveData: MutableLiveData<MutableList<Article>>
+    ) {
+        iNewsRetrofit.getEveryThing(q, sortBy, API_KEY).enqueue(object : Callback<ResultNews> {
             override fun onResponse(call: Call<ResultNews>, response: Response<ResultNews>) {
-                if (response.isSuccessful){
-                    Log.e("myRepository", "${response.body()?.status} - ${response.body()?.totalResults}")
+                if (response.isSuccessful) {
+                    Log.e(
+                        "myRepository",
+                        "${response.body()?.status} - ${response.body()?.totalResults}"
+                    )
                     var listNews: MutableList<Article>? = response.body()?.articles
                     if (listNews != null) {
-                        Log.e("listNews","${listNews?.size}")
-//                        for(i in listNews){
-//                            Log.e("listNews item","$i")
-//                        }
+                        Log.e("listNews", "${listNews?.size}")
                         resultLiveData.value = listNews
                     }
                 }
             }
 
             override fun onFailure(call: Call<ResultNews>, t: Throwable) {
-                Log.e("getEverything","error")
+                Log.e("getEverything", "error")
             }
 
         })
     }
-    fun getHeadlines(country:String,category:String,resultLiveData: MutableLiveData<MutableList<Article>>){
-        iNewsRetrofit.getHeadlines(country,category, API_KEY).enqueue(object:Callback<ResultNews>{
-            override fun onResponse(call: Call<ResultNews>, response: Response<ResultNews>) {
-                if (response.isSuccessful){
-                    Log.e("myRepository", "${response.body()?.status} - ${response.body()?.totalResults}")
-                    var listNews: MutableList<Article>? = response.body()?.articles
-                    if (listNews != null) {
-                        Log.e("listNews","${listNews?.size}")
-                        resultLiveData.value = listNews
+
+    fun getHeadlines(
+        country: String,
+        category: String,
+        resultLiveData: MutableLiveData<MutableList<Article>>
+    ) {
+        iNewsRetrofit.getHeadlines(country, category, API_KEY)
+            .enqueue(object : Callback<ResultNews> {
+                override fun onResponse(call: Call<ResultNews>, response: Response<ResultNews>) {
+                    if (response.isSuccessful) {
+                        Log.e(
+                            "myRepository",
+                            "${response.body()?.status} - ${response.body()?.totalResults}"
+                        )
+                        var listNews: MutableList<Article>? = response.body()?.articles
+                        if (listNews != null) {
+                            Log.e("listNews", "${listNews?.size}")
+                            resultLiveData.value = listNews
+                        }
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<ResultNews>, t: Throwable) {
-                Log.e("getHeadlines","error")
-            }
-
-        })
+                override fun onFailure(call: Call<ResultNews>, t: Throwable) {
+                    Log.e("getHeadlines", "error")
+                }
+            })
     }
 }
