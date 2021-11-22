@@ -19,5 +19,7 @@ class WebActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(this, "Website invalid", Toast.LENGTH_SHORT).show()
         }
+
+        web_ivClose.setOnClickListener { finish() }
     }
 }

@@ -8,6 +8,8 @@
 
     <ImageView
         android:id="@+id/item_news_ivImage"
+        android:adjustViewBounds="true"
+        android:src="@drawable/news"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

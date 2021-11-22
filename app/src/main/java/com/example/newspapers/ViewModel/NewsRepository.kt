@@ -22,10 +22,10 @@ class NewsRepository {
         iNewsRetrofit.getEveryThing(q, sortBy, API_KEY).enqueue(object : Callback<ResultNews> {
             override fun onResponse(call: Call<ResultNews>, response: Response<ResultNews>) {
                 if (response.isSuccessful) {
-                    Log.e(
-                        "myRepository",
-                        "${response.body()?.status} - ${response.body()?.totalResults}"
-                    )
+//                    Log.e(
+//                        "myRepository",
+//                        "${response.body()?.status} - ${response.body()?.totalResults}"
+//                    )
                     var listNews: MutableList<Article>? = response.body()?.articles
                     if (listNews != null) {
                         Log.e("listNews", "${listNews?.size}")
@@ -50,12 +50,18 @@ class NewsRepository {
             .enqueue(object : Callback<ResultNews> {
                 override fun onResponse(call: Call<ResultNews>, response: Response<ResultNews>) {
                     if (response.isSuccessful) {
-                        Log.e(
-                            "myRepository",
-                            "${response.body()?.status} - ${response.body()?.totalResults}"
-                        )
+//                        Log.e(
+//                            "myRepository",
+//                            "${response.body()?.status} - ${response.body()?.totalResults}"
+//                        )
                         var listNews: MutableList<Article>? = response.body()?.articles
                         if (listNews != null) {
+                            for (i in listNews) {
+                                Log.e(
+                                    "listNews",
+                                    "$i"
+                                )
+                            }
                             Log.e("listNews", "${listNews?.size}")
                             resultLiveData.value = listNews
                         }

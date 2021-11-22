@@ -37,7 +37,6 @@ class ArticleRecyclerViewAdapter(var listNews: MutableList<Article>) :
             Glide.with(view).load(article.urlToImage).into(holder.image)
         } catch (e: Exception) {
             e.stackTrace
-
         }
         holder.title.text = article.title
         holder.author.text = article.author
