@@ -1,0 +1,6 @@
+package com.example.newspapers.Model
+
+data class Source(
+    val id: String,
+    val name: String
+)
