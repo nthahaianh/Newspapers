@@ -33,11 +33,10 @@ class ArticleRecyclerViewAdapter(var listNews: MutableList<Article>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = listNews[position]
         holder.time.text = changeTimeFormat(article.publishedAt)
-        try {
-            Glide.with(view).load(article.urlToImage).into(holder.image)
-        } catch (e: Exception) {
-            e.stackTrace
-        }
+        Glide.with(view).load(article.urlToImage)
+            .placeholder(R.drawable.news)
+            .error(R.drawable.news)
+            .into(holder.image)
         holder.title.text = article.title
         holder.author.text = article.author
         holder.description.text = article.description
