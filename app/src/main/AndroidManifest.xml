@@ -13,14 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Newspapers"
         android:usesCleartextTraffic="true">
-        <activity android:name=".View.WebActivity"></activity>
-        <activity
-            android:name=".View.MainActivity"
+        <activity android:name=".View.PasswordActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".View.WebActivity" />
+        <activity
+            android:name=".View.MainActivity"
+            android:exported="true">
         </activity>
     </application>
 

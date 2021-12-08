@@ -21,13 +21,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    var newsViewModel: NewsViewModel? = null
+    lateinit var newsViewModel: NewsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         newsViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
-        newsViewModel!!.getData()
-        newsViewModel!!.listNews.observe(this, Observer {
+        newsViewModel.getData()
+        newsViewModel.listNews.observe(this, Observer {
             if (it == null || it.size <= 0) {
                 main_pbLoad.visibility = View.VISIBLE
             } else {
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                newsViewModel!!.getListSearch(main_etSearch.text.toString())
+                newsViewModel.getListSearch(main_etSearch.text.toString())
                 main_ivBack.visibility = View.VISIBLE
             }
 
@@ -57,21 +57,21 @@ class MainActivity : AppCompatActivity() {
     private fun setUp() {
         val layoutManager: RecyclerView.LayoutManager =
             LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL, false)
-        var adapter = newsViewModel!!.listNews.value?.let { ArticleRecyclerViewAdapter(it) }
+        var adapter = newsViewModel.listNews.value?.let { ArticleRecyclerViewAdapter(it) }
         adapter?.setCallBackItem {
-            val urlNews = newsViewModel!!.listNews.value?.get(it)?.url
+            val urlNews = newsViewModel.listNews.value?.get(it)?.url
             val intent = Intent(this, WebActivity::class.java)
             intent.putExtra("url", urlNews)
             startActivity(intent)
         }
         main_rvNews.layoutManager = layoutManager
         main_rvNews.adapter = adapter
-        newsViewModel!!.listNews.observe(this, Observer {
+        newsViewModel.listNews.observe(this, Observer {
             adapter?.listNews = it
             adapter?.notifyDataSetChanged()
         })
         main_ivBack.setOnClickListener {
-            newsViewModel!!.getData()
+            newsViewModel.getData()
             main_etSearch.clearFocus()
             main_ivBack.visibility = View.GONE
         }

@@ -35,7 +35,7 @@ class ArticleRecyclerViewAdapter(var listNews: MutableList<Article>) :
         holder.time.text = changeTimeFormat(article.publishedAt)
         Glide.with(view).load(article.urlToImage)
             .placeholder(R.drawable.news)
-            .error(R.drawable.news)
+            .error(R.drawable.image_error)
             .into(holder.image)
         holder.title.text = article.title
         holder.author.text = article.author
