@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         adapter?.setCallBackItem {
             val urlNews = newsViewModel.listNews.value?.get(it)?.url
             val intent = Intent(this, WebActivity::class.java)
-            intent.putExtra("url", urlNews)
+            intent.putExtra("${R.string.url_intent}", urlNews)
             startActivity(intent)
         }
         main_rvNews.layoutManager = layoutManager

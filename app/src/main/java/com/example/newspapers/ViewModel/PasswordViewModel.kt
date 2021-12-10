@@ -93,7 +93,6 @@ class PasswordViewModel(application: Application) : AndroidViewModel(application
     private fun checkPass() {   // Check pass to login
         if (password == passInput) {
             isLogin.value = true
-            Log.e("checkPass", "Password: $password == $passInput")
         } else {
             isLogin.value = false
             title.value = "Password incorrect! Please enter your PIN again"

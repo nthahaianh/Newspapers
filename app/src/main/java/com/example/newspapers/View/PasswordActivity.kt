@@ -1,9 +1,13 @@
 package com.example.newspapers.View
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.ImageView
+import androidx.core.view.children
 import androidx.lifecycle.ViewModelProviders
 import com.example.newspapers.R
 import com.example.newspapers.ViewModel.PasswordViewModel
@@ -60,38 +64,44 @@ class PasswordActivity : AppCompatActivity() {
     }
 
     private fun setUpViewModel() {
+//        var i=0
+//        for(item in pin.children){
+//            Log.e("pin","$i --- $item")
+//            passwordViewModel.isCircle.observe(this,{
+//                setResource(it[i],item.findViewById(item.id))
+//            })
+//            i++
+//        }
         passwordViewModel.isCircle4.observe(this, {
-            if (it)
-                circle4.setImageResource(R.drawable.ic_full_circle)
-            else
-                circle4.setImageResource(R.drawable.ic_circle)
+            setResource(it, circle4)
         })
         passwordViewModel.isCircle3.observe(this, {
-            if (it)
-                circle3.setImageResource(R.drawable.ic_full_circle)
-            else
-                circle3.setImageResource(R.drawable.ic_circle)
+            setResource(it, circle3)
         })
         passwordViewModel.isCircle2.observe(this, {
-            if (it)
-                circle2.setImageResource(R.drawable.ic_full_circle)
-            else
-                circle2.setImageResource(R.drawable.ic_circle)
+            setResource(it, circle2)
         })
         passwordViewModel.isCircle1.observe(this, {
-            if (it)
-                circle1.setImageResource(R.drawable.ic_full_circle)
-            else
-                circle1.setImageResource(R.drawable.ic_circle)
+            setResource(it, circle1)
         })
         passwordViewModel.isLogin.observe(this, {
-            if (it){
-                startActivity(Intent(this, MainActivity::class.java))
+            if (it) {
+//                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
         })
-        passwordViewModel.title.observe(this,{
+        passwordViewModel.title.observe(this, {
             pass_tvTitle.text = it
         })
+    }
+
+    private fun setResource(it: Boolean, dot: ImageView) {
+        if (it)
+            dot.setImageResource(R.drawable.ic_full_circle)
+        else
+            dot.setImageResource(R.drawable.ic_circle)
+    }
+
+    override fun onBackPressed() {
     }
 }

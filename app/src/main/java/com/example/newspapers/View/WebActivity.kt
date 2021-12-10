@@ -2,6 +2,7 @@ package com.example.newspapers.View
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -13,7 +14,7 @@ class WebActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web)
         val intent = intent
-        var urlNews = intent.getStringExtra("url")
+        var urlNews = intent.getStringExtra("${R.string.url_intent}")
         try {
             web_webView.webViewClient = WebViewClient()
             web_webView.settings.loadsImagesAutomatically = true
@@ -31,9 +32,9 @@ class WebActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if(web_webView.canGoBack()){
+        if (web_webView.canGoBack()) {
             web_webView.goBack()
-        }else{
+        } else {
             super.onBackPressed()
         }
     }
