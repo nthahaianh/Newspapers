@@ -1,12 +1,16 @@
 package com.example.newspapers.View
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Application
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.children
 import androidx.lifecycle.ViewModelProviders
 import com.example.newspapers.R
@@ -25,36 +29,6 @@ class PasswordActivity : AppCompatActivity() {
     }
 
     private fun setUpView() {
-        btn0.setOnClickListener {
-            passwordViewModel.addValue(0)
-        }
-        btn1.setOnClickListener {
-            passwordViewModel.addValue(1)
-        }
-        btn2.setOnClickListener {
-            passwordViewModel.addValue(2)
-        }
-        btn3.setOnClickListener {
-            passwordViewModel.addValue(3)
-        }
-        btn4.setOnClickListener {
-            passwordViewModel.addValue(4)
-        }
-        btn5.setOnClickListener {
-            passwordViewModel.addValue(5)
-        }
-        btn6.setOnClickListener {
-            passwordViewModel.addValue(6)
-        }
-        btn7.setOnClickListener {
-            passwordViewModel.addValue(7)
-        }
-        btn8.setOnClickListener {
-            passwordViewModel.addValue(8)
-        }
-        btn9.setOnClickListener {
-            passwordViewModel.addValue(9)
-        }
         btnClearAll.setOnClickListener {
             passwordViewModel.clearData()
         }
@@ -64,14 +38,6 @@ class PasswordActivity : AppCompatActivity() {
     }
 
     private fun setUpViewModel() {
-//        var i=0
-//        for(item in pin.children){
-//            Log.e("pin","$i --- $item")
-//            passwordViewModel.isCircle.observe(this,{
-//                setResource(it[i],item.findViewById(item.id))
-//            })
-//            i++
-//        }
         passwordViewModel.isCircle4.observe(this, {
             setResource(it, circle4)
         })
@@ -86,7 +52,6 @@ class PasswordActivity : AppCompatActivity() {
         })
         passwordViewModel.isLogin.observe(this, {
             if (it) {
-//                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
         })
@@ -102,6 +67,30 @@ class PasswordActivity : AppCompatActivity() {
             dot.setImageResource(R.drawable.ic_circle)
     }
 
+    fun onClickButton(view: View) {
+        val button = view as AppCompatButton
+        when (button.text.toString()) {
+            "0" -> passwordViewModel.addValue(0)
+            "1" -> passwordViewModel.addValue(1)
+            "2" -> passwordViewModel.addValue(2)
+            "3" -> passwordViewModel.addValue(3)
+            "4" -> passwordViewModel.addValue(4)
+            "5" -> passwordViewModel.addValue(5)
+            "6" -> passwordViewModel.addValue(6)
+            "7" -> passwordViewModel.addValue(7)
+            "8" -> passwordViewModel.addValue(8)
+            "9" -> passwordViewModel.addValue(9)
+        }
+    }
+
     override fun onBackPressed() {
+        val dialog = AlertDialog.Builder(this)
+        dialog.setTitle("Are you sure?")
+            .setMessage("Do you want to exit app?")
+            .setNegativeButton("No") { _: DialogInterface, _: Int -> }
+            .setPositiveButton("Yes") { _: DialogInterface, _: Int ->
+                finishAffinity()
+            }
+            .show()
     }
 }
